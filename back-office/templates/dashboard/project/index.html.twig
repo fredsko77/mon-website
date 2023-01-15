@@ -1,0 +1,44 @@
+{% extends "layouts/main.html.twig" %}
+
+{% block main %}
+
+    <div class="row g-4 mb-3">
+        <div class="col-sm-auto">
+            <div>
+                <a href="http://" class="btn btn-success">
+                    <i class="ri-add-line align-bottom me-1"></i>
+                    Nouveau projet
+                </a>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="d-flex justify-content-sm-end gap-2">
+                <div class="search-box ms-2">
+                    <input type="text" class="form-control" placeholder="Search...">
+                    <i class="ri-search-line search-icon"></i>
+                </div>
+                <div class="col-auto">
+                    <select name="" id="" class="form-select" aria-label="Aria label">
+                        <option value="">Value 1</option>
+                        <option value="">Value 2</option>
+                        <option value="">Value 3</option>
+                        <option value="">Value 4</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xxl-3">
+            <col-sm-6 class="project-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="p-3 mt-n3 mx-n3 bg-soft-info rounded-top">
+                        </div>
+                    </div>
+                </div>
+            </col-sm-6>
+        </div>
+    </div>
+
+{% endblock %}

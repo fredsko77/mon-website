@@ -2,15 +2,29 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[
+    UniqueEntity(
+        fields: ['email'],
+        errorPath: 'email',
+        message: 'Cette adresse email est déjà utilisée !'
+    ),
+    UniqueEntity(
+        fields: ['username'],
+        errorPath: 'username',
+        message: 'Ce nom d\'utilisateur est déjà utilisé !'
+    )
+]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -19,6 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank(message: 'L\'adresse e-mail est obligatoire !')]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -29,9 +44,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
-
-    #[ORM\Column(length: 150, nullable: true)]
-    private ?string $fullname = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $token = null;
@@ -54,17 +66,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Document::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Document::class, cascade: ['persist', 'remove'])]
     private Collection $documents;
 
-    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Book::class)]
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Book::class, cascade: ['persist', 'remove'])]
     private Collection $books;
 
-    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Page::class)]
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Page::class, cascade: ['persist', 'remove'])]
     private Collection $pages;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ApiTracking::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ApiTracking::class, cascade: ['persist', 'remove'])]
     private Collection $apiTrackings;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    #[Assert\NotBlank(message: 'Ce champs est obligatoire !', allowNull: true)]
+    private ?string $firstname = null;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    #[Assert\NotBlank(message: 'Ce champs est obligatoire !', allowNull: true)]
+    private ?string $lastname = null;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    #[Assert\NotBlank(message: 'Le nom d\'utilisateur est obligatoire !')]
+    private ?string $username = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Project::class, cascade: ['persist', 'remove'])]
+    private Collection $projects;
+
+    const ROLES = [
+        'Super Administrateur' => ['ROLE_SUPER_ADMIN'],
+        'Administrateur' => ['ROLE_ADMIN'],
+        'Gestionnaire' => ['ROLE_MANAGER'],
+        'Editeur' => ['ROLE_EDITOR'],
+        'Utilisateur' => ['ROLE_USER']
+    ];
 
     public function __construct()
     {
@@ -72,6 +107,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->books = new ArrayCollection();
         $this->pages = new ArrayCollection();
         $this->apiTrackings = new ArrayCollection();
+        $this->projects = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -142,18 +178,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    public function getFullname(): ?string
-    {
-        return $this->fullname;
-    }
-
-    public function setFullname(?string $fullname): self
-    {
-        $this->fullname = $fullname;
-
-        return $this;
     }
 
     public function getToken(): ?string
@@ -354,6 +378,72 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($apiTracking->getUser() === $this) {
                 $apiTracking->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(?string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(?string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(?string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Project>
+     */
+    public function getProjects(): Collection
+    {
+        return $this->projects;
+    }
+
+    public function addProject(Project $project): self
+    {
+        if (!$this->projects->contains($project)) {
+            $this->projects->add($project);
+            $project->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Project $project): self
+    {
+        if ($this->projects->removeElement($project)) {
+            // set the owning side to null (unless already changed)
+            if ($project->getUser() === $this) {
+                $project->setUser(null);
             }
         }
 

@@ -25,12 +25,8 @@ class FileType
     #[ORM\Column(type: Types::JSON, nullable: true)]
     private array $fileExtensions = [];
 
-    #[ORM\OneToMany(mappedBy: 'fileType', targetEntity: Document::class)]
-    private Collection $documents;
-
     public function __construct()
     {
-        $this->documents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -70,36 +66,6 @@ class FileType
     public function setFileExtensions(?array $fileExtensions): self
     {
         $this->fileExtensions = $fileExtensions;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Document>
-     */
-    public function getDocuments(): Collection
-    {
-        return $this->documents;
-    }
-
-    public function addDocument(Document $document): self
-    {
-        if (!$this->documents->contains($document)) {
-            $this->documents->add($document);
-            $document->setFileType($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDocument(Document $document): self
-    {
-        if ($this->documents->removeElement($document)) {
-            // set the owning side to null (unless already changed)
-            if ($document->getFileType() === $this) {
-                $document->setFileType(null);
-            }
-        }
 
         return $this;
     }

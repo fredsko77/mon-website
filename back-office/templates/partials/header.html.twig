@@ -1,0 +1,32 @@
+<!-- Start Header Content -->
+<header class="header mb-2">
+    <div class="header-navbar">
+        <!-- Bouton hamburger ici / toggleSidebar() -->
+        <i class="bi bi-list" id="header-hamburger"></i>
+        <!-- Bouton avatar ici / toggleDropdown() menu utilisateur -->
+        <div class="nav-item dropdown">
+            <a 
+                class="avatar dropdown-toggle" 
+                href="#" 
+                role="button" 
+                data-bs-toggle="dropdown" 
+                aria-expanded="false"
+            >F</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Mon compte</a></li>
+                <li><a class="dropdown-item" href="#">Mes notifs</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{{ path('auth_deconnexion') }}">Déconnexion</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="header-breadcrumb">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Library</li>
+            </ol>
+        </nav>
+    </div>
+</header>
+<!-- End Header Content -->

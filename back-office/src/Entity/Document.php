@@ -32,6 +32,9 @@ class Document
     #[ORM\ManyToOne(inversedBy: 'documents')]
     private ?User $user = null;
 
+    #[ORM\ManyToOne(inversedBy: 'document')]
+    private ?Contact $contact = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +108,18 @@ class Document
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getContact(): ?Contact
+    {
+        return $this->contact;
+    }
+
+    public function setContact(?Contact $contact): self
+    {
+        $this->contact = $contact;
 
         return $this;
     }

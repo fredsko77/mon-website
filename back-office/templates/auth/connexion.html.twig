@@ -1,0 +1,52 @@
+{% extends "layouts/auth.html.twig" %}
+
+{% block main %}
+    <div class="">
+        <h1 class="h5 text-primary">Bon retour !</h1>
+        <p class="text-muted">Connectez-vous pour continuer sur l'espace admin</p>
+    </div>
+    <form autocomplete="off" action="{{ path('auth_connexion') }}" method="post">
+        {% if error %}
+            <div class="alert alert-danger alert-dismissible shadow fade show" role="alert">
+                <small>
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </small> 
+                <button 
+                    class="btn-close" 
+                    data-bs-dismiss="alert" 
+                    aria-label="Close"
+                ></button>
+            </div>
+        {% endif %}
+        <div class="mb-3">
+            <label for="username">E-mail {# ou nom d'utilisateur #}</label>
+            <input 
+                type="email" 
+                autocomplete="off" 
+                autofocus 
+                name="username" 
+                id="username" 
+                class="form-control"
+                required
+                value="{{ lastUsername }}"
+            />
+        </div>
+        <div class="mb-3">
+            <label for="password">Mot de passe</label>
+            <input 
+                type="password" 
+                name="password" 
+                id="password" 
+                class="form-control"
+                autocomplete="off"
+                required
+            />
+        </div>
+            <input 
+                type="hidden" 
+                name="_csrf_token"
+                value="{{ csrf_token('authenticate') }}"
+            >
+        <button type="submit" class="btn btn-success w-100">Me connecter</button>
+    </form>
+{% endblock %}

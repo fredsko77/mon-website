@@ -1,0 +1,323 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+:root {
+  --app-purple: #4c0bce;
+  --app-violet: #712cf9;
+  --app-accent: #ffe484;
+  --app-violet-rgb: 112.520718,44.062154,249.437846;
+  --app-accent-rgb: 255,228,132;
+  --app-pink-rgb: 214,51,132;
+  --app-teal-rgb: 32,201,151;
+  --docsearch-primary-color: var(--bd-violet);
+  --docsearch-logo-color: var(--bd-violet);
+  --app-violet-bg: var(--bd-violet);
+  --app-sidebar-link-bg: rgba(var(--bd-violet-rgb), .1);
+}
+
+.material-icons-outlined {
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px; /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: "liga";
+}
+
+/* Scroll Bar layout */
+
+::-webkit-scrollbar {
+  /* width */
+  width: 8px;
+}
+
+.side-wrapper::-webkit-scrollbar {
+  /* width */
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  /* Track */
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  /* Handle */
+  background: var(--bs-gray);
+  border-radius: 8px;
+}
+
+.side-wrapper::-webkit-scrollbar-thumb {
+  /* Handle */
+  background: var(--bs-gray-500);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  /* Handle on hover */
+  background: var(--bs-gray-600);
+}
+
+body {
+  overflow: hidden;
+}
+
+
+/* @Override Bootstrap CSS */
+.nav-item .nav-link {
+  color: inherit;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+  color: var(--bs-blue);
+}
+
+/* Custom CSS */
+.layout {
+  width: 100%;
+  color: inherit;
+  height: 100vh;
+  background-color: var(--bs-white);
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 16px;
+  overflow: hidden;
+  display: block;
+}
+
+.layout.layout-dashboard:not(.one-column) {
+  display: grid;
+  grid-template-columns: 250px auto;
+  grid-row-gap: 0;
+}
+.layout.layout-dashboard {
+  display: flex;
+}
+
+.layout.layout-dashboard.one-column .sidebar {
+  width: 0;
+  display: none;
+}
+
+/* Sidebar layout content Styles */
+.layout.layout-dashboard:not(.one-column).sidebar {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.side-wrapper {
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-right: 1px solid rgba(0, 0, 0, 0.07);
+  background-color: var(--bs-light);
+}
+
+.sidebar-header {
+  width: 80%;
+  margin: 20px auto 1rem;
+  border-radius: 10px;
+  min-height: 50px;
+  height: auto;
+  padding: 1rem;
+  background-color: var(--bs-white);
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.sidebar-header:hover {
+  box-shadow: rgba(149, 157, 165, 0.3) 2px 10px 25px;
+}
+
+.sidebar-brand {
+  display: block;
+  color: var(--bs-indigo);
+  font-size: 30px;
+}
+
+.sidebar-brand,
+.sidebar-brand:visited {
+  text-decoration: none;
+  text-transform: none;
+  color: var(--bs-indigo);
+}
+
+.sidebar-brand .brand-logo {
+  width: 75px;
+  height: 50px;
+}
+
+.sidebar-brand .brand-text {
+  display: block;
+  width: 100%;
+}
+
+.sidebar-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: flex-start;
+  width: 100%;
+  min-height: calc(100vh - 250px);
+  height: auto;
+}
+
+.sidebar .nav {
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.sub-nav {
+  width: 100%;
+  list-style: none;
+  margin-bottom: 0;
+  padding-left: 10px;
+  height: 0;
+  display: none;
+  transition: all 0.5s ease-in-out;
+  flex-wrap: wrap;
+}
+
+.sub-nav.open {
+  display: flex;
+  height: auto;
+}
+
+.nav-link.sidebar-dropdown {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+/* Sidebar layout content Styles */
+.header {
+  width: 100%;
+  min-height: 10vh;
+}
+
+#header-hamburger {
+  font-size: 30px;
+  color: var(--bs-white);
+  line-height: 0;
+}
+
+#header-hamburger:hover {
+  cursor: pointer;
+}
+
+.header-navbar {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  box-shadow: 0 0.5rem 1rem rgb(0, 0, 0, .15), inset 0 -1px 0 rgb(255, 255, 255, .15);
+  background-color: var(--app-purple);
+}
+
+header .breadcrumb {
+  margin-bottom: 0;
+}
+
+.avatar {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 30px;
+  text-decoration: none;
+  color: var(--bs-white);
+  font-size: 25px;
+  transition: all 0.4s ease-in-out;
+  /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  background-color: var(--bs-indigo);
+}
+
+.avatar.dropdown-toggle::after {
+  display: none;
+}
+
+.header-breadcrumb {
+  margin-bottom: 0;
+  padding: 10px 10px;
+}
+
+/* Main Content Wrapper CSS */
+.main-wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: auto;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
+}
+
+.main {
+  width: 100%;
+  padding-bottom: 1rem;
+}
+
+.main-content {
+  min-height: calc(100vh - 200px);
+  height: auto;
+  margin-right: 0 !important;
+}
+
+
+@media (min-width: 768px) {
+  .main-content {
+    margin-left: 0;
+  }
+}
+
+
+.footer {
+  min-height: 50px;
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bs-light);
+}

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -40,6 +42,31 @@ class Project
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\ManyToOne(inversedBy: 'projects')]
+    private ?User $user = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $visibility = null;
+
+    #[ORM\ManyToMany(targetEntity: Stack::class, cascade: ['persist', 'remove'])]
+    private Collection $stack;
+
+    public function __construct()
+    {
+        $this->stack = new ArrayCollection();
+    }
+
+    const VISIBILITIES = [
+        'private' => 'Privé',
+        'public' => 'Public',
+    ];
+
+    const STATES = [
+        'draft' => 'En brouillon',
+        'review' => 'En validation',
+        'published' => 'Publié',
+    ];
 
     public function getId(): ?int
     {
@@ -150,6 +177,54 @@ class Project
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getVisibility(): ?string
+    {
+        return $this->visibility;
+    }
+
+    public function setVisibility(?string $visibility): self
+    {
+        $this->visibility = $visibility;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Stack>
+     */
+    public function getStack(): Collection
+    {
+        return $this->stack;
+    }
+
+    public function addStack(Stack $stack): self
+    {
+        if (!$this->stack->contains($stack)) {
+            $this->stack->add($stack);
+        }
+
+        return $this;
+    }
+
+    public function removeStack(Stack $stack): self
+    {
+        $this->stack->removeElement($stack);
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BookRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -40,6 +42,14 @@ class Book
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $publishedAt = null;
+
+    #[ORM\OneToMany(mappedBy: 'book', targetEntity: Page::class)]
+    private Collection $page;
+
+    public function __construct()
+    {
+        $this->page = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -150,6 +160,36 @@ class Book
     public function setPublishedAt(?\DateTimeImmutable $publishedAt): self
     {
         $this->publishedAt = $publishedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Page>
+     */
+    public function getPage(): Collection
+    {
+        return $this->page;
+    }
+
+    public function addPage(Page $page): self
+    {
+        if (!$this->page->contains($page)) {
+            $this->page->add($page);
+            $page->setBook($this);
+        }
+
+        return $this;
+    }
+
+    public function removePage(Page $page): self
+    {
+        if ($this->page->removeElement($page)) {
+            // set the owning side to null (unless already changed)
+            if ($page->getBook() === $this) {
+                $page->setBook(null);
+            }
+        }
 
         return $this;
     }

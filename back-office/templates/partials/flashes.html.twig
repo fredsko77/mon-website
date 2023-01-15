@@ -1,0 +1,24 @@
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success alert-dismissible alert-borderless shadow fade show" role="alert">
+        <small>{{ message }}</small>
+        <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+{% for message in app.flashes('info') %}
+    <div class="alert alert-info alert-dismissible alert-borderless shadow fade show" role="alert">
+        <small>{{ message }}</small>
+        <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+{% for message in app.flashes('warning') %}
+    <div class="alert alert-warning alert-dismissible alert-borderless shadow fade show" role="alert">
+        <small>{{ message }}</small>
+        <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+{% for message in app.flashes('danger') %}
+    <div class="alert alert-danger alert-dismissible alert-borderless shadow fade show" role="alert">
+        <small>{{ message }}</small>
+        <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}

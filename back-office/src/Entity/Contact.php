@@ -43,12 +43,16 @@ class Contact
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'contact', targetEntity: Note::class)]
+    #[ORM\OneToMany(mappedBy: 'contact', targetEntity: Note::class, cascade: ['persist', 'remove'])]
     private Collection $notes;
+
+    #[ORM\OneToMany(mappedBy: 'contact', targetEntity: Document::class, cascade: ['persist', 'remove'])]
+    private Collection $document;
 
     public function __construct()
     {
         $this->notes = new ArrayCollection();
+        $this->document = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -188,6 +192,36 @@ class Contact
             // set the owning side to null (unless already changed)
             if ($note->getContact() === $this) {
                 $note->setContact(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Document>
+     */
+    public function getDocument(): Collection
+    {
+        return $this->document;
+    }
+
+    public function addDocument(Document $document): self
+    {
+        if (!$this->document->contains($document)) {
+            $this->document->add($document);
+            $document->setContact($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Document $document): self
+    {
+        if ($this->document->removeElement($document)) {
+            // set the owning side to null (unless already changed)
+            if ($document->getContact() === $this) {
+                $document->setContact(null);
             }
         }
 
