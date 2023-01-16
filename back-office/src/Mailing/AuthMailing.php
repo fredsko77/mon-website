@@ -31,7 +31,5 @@ class AuthMailing
         } catch (TransportExceptionInterface $e) {
             throw new TransportException("Something went wrong while sending this email : {$e->getMessage()}");
         }
-
-        return;
     }
 }

@@ -1,117 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('css/email.css') }}">
-</head>
-<body>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="{{ asset('css/email.css') }}">
+	</head>
+	<body>
 
-    <div class="row">
-        <div class="col-12">
-            <table 
-                class="body-wrap" 
-                style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; width: 100%; background-color: transparent; margin: 0;"
-                >
-                <tr style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                    <td 
-                        style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0;" 
-                        valign="top"
-                    ></td>
-                    <td class="container" width="800" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; display: block !important; max-width: 800px !important; clear: both !important; margin: 0 auto;" valign="top">
-                        <div class="content" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; max-width: 800px; display: block; margin: 0 auto; padding: 20px;">
-                            <table 
-                                class="main" 
-                                width="100%" 
-                                cellpadding="0" 
-                                cellspacing="0" 
-                                itemprop="action" 
-                                itemscope 
-                                itemtype="http://schema.org/ConfirmAction" 
-                                style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; border-radius: 3px; margin: 0; border: none;"
-                            >
-                                <tr style="font-family: 'Roboto', sans-serif; font-size: 14px; margin: 0;">
-                                    <td class="content-wrap" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; color: #495057; font-size: 14px; vertical-align: top; margin: 0;padding: 30px; box-shadow: 0 3px 15px rgba(30,32,37,.06); ;border-radius: 7px; background-color: #fff;" valign="top">
-                                        <meta 
-                                            itemprop="name" 
-                                            content="Confirmation de compte" 
-                                            style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;" 
-                                        />
-                                        <table width="100%" cellpadding="0" cellspacing="0" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                            <tr style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                                <td class="content-block" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
-                                                    <div style="text-align: center;margin-bottom: 15px;">
-                                                        <img 
-                                                            src="{{ email.image('logo-light.png') }}" 
-                                                            alt="Logo teamee" 
-                                                            height="30"
-                                                        >
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                                <td class="content-block" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; line-height: 1.5; font-size: 24px; vertical-align: top; margin: 0; padding: 0 0 10px;text-align: center; font-weight: 500;" valign="top">
-                                                    Confirmer votre compte
-                                                </td>
-                                            </tr>
-                                            <tr style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                                <td class="content-block" style="font-family: 'Roboto', sans-serif; color: #878a99; line-height: 1.5; box-sizing: border-box; font-size: 15px; vertical-align: top; margin: 0; padding: 0 0 24px; text-align: center;" valign="top">
-                                                    <p>Bonjour {{ user.firstname ?? '@' ~ user.username }}, </p> 
-                                                    <p><b>Nous vous confirmons la création de votre Compte</b> avec l'e-mail : {{ user.email }}.</p>
-                                                    <p>Vous pouvez vous connecter en cliquant sur le lien : </p>
-                                                </td>
-                                            </tr>
-                                            <tr style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                                <td 
-                                                    class="content-block" 
-                                                    itemprop="handler" 
-                                                    itemscope 
-                                                    itemtype="http://schema.org/HttpActionHandler" 
-                                                    style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 24px; text-align: center;" 
-                                                    valign="top"
-                                                >
-                                                    <a 
-                                                        href="#" 
-                                                        itemprop="url" 
-                                                        style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: .8125rem;font-weight: 400; color: #FFF; text-decoration: none;text-align: center; cursor: pointer; display: inline-block; border-radius: .25rem; text-transform: capitalize; background-color: #3bad71; margin: 0; border-color: #3bad71; border-style: solid; border-width: 1px; padding: .5rem .9rem;box-shadow: 0 3px 3px rgba(56,65,74,0.1);" 
-                                                        onMouseOver="this.style.background='#099885'" 
-                                                        onMouseOut="this.style.background='#3bad71'"
-                                                    >Connexion</a>
-                                                </td>
-                                            </tr>
+		<div class="row">
+			<div class="col-12">
+				<table class="body-wrap" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; width: 100%; background-color: transparent; margin: 0;">
+					<tr style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+						<td style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0;" valign="top"></td>
+						<td class="container" width="800" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; display: block !important; max-width: 800px !important; clear: both !important; margin: 0 auto;" valign="top">
+							<div class="content" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; max-width: 800px; display: block; margin: 0 auto; padding: 20px;">
+								<table class="main" width="100%" cellpadding="0" cellspacing="0" itemprop="action" itemscope itemtype="http://schema.org/ConfirmAction" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; border-radius: 3px; margin: 0; border: none;">
+									<tr style="font-family: 'Roboto', sans-serif; font-size: 14px; margin: 0;">
+										<td class="content-wrap" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; color: #495057; font-size: 14px; vertical-align: top; margin: 0;padding: 30px; box-shadow: 0 3px 15px rgba(30,32,37,.06); ;border-radius: 7px; background-color: #fff;" valign="top">
+											<meta itemprop="name" content="Confirmation de compte" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"/>
+											<table width="100%" cellpadding="0" cellspacing="0" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+												<tr style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+													<td class="content-block" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
+														<div style="text-align: center;margin-bottom: 15px;">
+															<img src="{{ email.image('logo-light.png') }}" alt="Logo teamee" height="30">
+														</div>
+													</td>
+												</tr>
+												<tr style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+													<td class="content-block" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; line-height: 1.5; font-size: 24px; vertical-align: top; margin: 0; padding: 0 0 10px;text-align: center; font-weight: 500;" valign="top">
+														Confirmer votre compte
+													</td>
+												</tr>
+												<tr style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+													<td class="content-block" style="font-family: 'Roboto', sans-serif; color: #878a99; line-height: 1.5; box-sizing: border-box; font-size: 15px; vertical-align: top; margin: 0; padding: 0 0 24px; text-align: center;" valign="top">
+														<p>Bonjour
+															{{ user.firstname ?? '@' ~ user.username }},
+														</p>
+														<p>
+															<b>Nous vous confirmons la création de votre Compte</b>
+															avec l'e-mail :
+															{{ user.email }}.</p>
+														<p>Vous pouvez valider la création en cliquant sur le lien :
+														</p>
+													</td>
+												</tr>
+												<tr style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+													<td class="content-block" itemprop="handler" itemscope itemtype="http://schema.org/HttpActionHandler" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 24px; text-align: center;" valign="top">
+														<a href="{{ absolute_url(path('auth_inscription_confirm', {token: token})) }}" itemprop="url" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: .8125rem;font-weight: 400; color: #FFF; text-decoration: none;text-align: center; cursor: pointer; display: inline-block; border-radius: .25rem; text-transform: capitalize; background-color: #3bad71; margin: 0; border-color: #3bad71; border-style: solid; border-width: 1px; padding: .5rem .9rem;box-shadow: 0 3px 3px rgba(56,65,74,0.1);" onmouseover="this.style.background='#099885'" onmouseout="this.style.background='#3bad71'">Valider votre compte</a>
+													</td>
+												</tr>
 
-                                            <tr style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0; border-top: 1px solid #e9ebec;">
-                                                <td class="content-block" style="color: #878a99; text-align: center;font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0; padding-top: 15px" valign="top">
-                                                    Si vous avez reçu ce mail par erreur, supprimez-le cimplement. Vous ne serez pas inscrit si vous ne cliquez pas sur le lien de confirmation au-dessus.
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                            <div style="text-align: center; margin: 0px auto;">
-                                {# <ul style="list-style: none;display: flex; justify-content: space-evenly; padding-top: 25px;margin-bottom: 20px; padding-left: 0px; font-family: 'Roboto', sans-serif;">
-                                    <li>
-                                        <a href="#" style="color: #495057;">Help Center</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" style="color: #495057;">Support 24/7</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" style="color: #495057;">Account</a>
-                                    </li>
-                                </ul> #}
-                                <p style="font-family: 'Roboto', sans-serif; font-size: 14px;color: #98a6ad; margin: 0px; margin-top: 10px;">{{ 'now'|date('Y') }} &copy; Teamee. Design & Develop by @fagathe</p>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-            <!-- end table -->
-        </div>
-        <!--end col-->
-    </div><!-- end row -->
-    
-</body>
+												<tr style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0; border-top: 1px solid #e9ebec;">
+													<td class="content-block" style="color: #878a99; text-align: center;font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0; padding-top: 15px" valign="top">
+														Si vous avez reçu ce mail par erreur, supprimez-le cimplement. Vous ne serez pas inscrit si vous ne cliquez pas sur le lien de confirmation au-dessus.
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+								<div
+									style="text-align: center; margin: 0px auto;">
+									{# <ul style="list-style: none;display: flex; justify-content: space-evenly; padding-top: 25px;margin-bottom: 20px; padding-left: 0px; font-family: 'Roboto', sans-serif;">
+																											                                    <li>
+																											                                        <a href="#" style="color: #495057;">Help Center</a>
+																											                                    </li>
+																											                                    <li>
+																											                                        <a href="#" style="color: #495057;">Support 24/7</a>
+																											                                    </li>
+																											                                    <li>
+																											                                        <a href="#" style="color: #495057;">Account</a>
+																											                                    </li>
+																											                                </ul> #}
+									<p style="font-family: 'Roboto', sans-serif; font-size: 14px;color: #98a6ad; margin: 0px; margin-top: 10px;">{{ 'now'|date('Y') }}
+										&copy; Teamee. Design & Develop by @fagathe</p>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</table>
+				<!-- end table -->
+			</div>
+			<!--end col-->
+		</div>
+		<!-- end row -->
+
+	</body>
 </html>

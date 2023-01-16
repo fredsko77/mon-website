@@ -3,15 +3,16 @@
 namespace App\Controller\Auth;
 
 use App\Entity\Utilisateur;
-use App\Form\Auth\InscriptionType;
 use App\Mailing\AuthMailing;
+use App\Form\Auth\InscriptionType;
 use App\Service\UtilisateurService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/auth/inscription', name: 'auth_inscription')]
+#[Route('/inscription', name: 'auth_inscription')]
 class InscriptionController extends AbstractController
 {
 
@@ -49,10 +50,14 @@ class InscriptionController extends AbstractController
         return $this->renderForm('auth/inscription.html.twig', compact('form', 'user'));
     }
 
-    #[Route('/{token}', name: '_confirm', methods: ['GET'])]
-    public function inscriptionConfirm(): Response
+    #[Route(
+        '/confirm', 
+        name: '_confirm', 
+        methods: ['GET']
+    )]
+    public function inscriptionConfirm(Request $request): RedirectResponse
     {
-        
-        return $this->render('', compact(''));
+        $this->service->confirmUser($request);
+        return $this->redirectToRoute('auth_connexion');
     }
 }
