@@ -44,7 +44,7 @@ class Project
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'projects')]
-    private ?User $user = null;
+    private ?Utilisateur $user = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $visibility = null;
@@ -181,12 +181,12 @@ class Project
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getUser(): ?Utilisateur
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(?Utilisateur $user): self
     {
         $this->user = $user;
 

@@ -8,7 +8,7 @@ use stdClass;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\ConstraintViolationList;
 
-trait ServicesTrait
+trait ServiceTrait
 {
 
     /**
@@ -94,7 +94,7 @@ trait ServicesTrait
     }
 
     /**
-     * @param User|null $user
+     * @param Utilisateur|null $user
      *
      * @return string
      */

@@ -14,7 +14,7 @@ class ApiTracking
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'apiTrackings')]
-    private ?User $user = null;
+    private ?Utilisateur $user = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $nbCallApiRequest = null;
@@ -27,12 +27,12 @@ class ApiTracking
         return $this->id;
     }
 
-    public function getUser(): ?User
+    public function getUser(): ?Utilisateur
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(?Utilisateur $user): self
     {
         $this->user = $user;
 

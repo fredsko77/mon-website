@@ -12,7 +12,10 @@ class DefaultController extends AbstractController
 
     #[Route('', name: '', methods: ['GET'])]
     public function default(): Response
-    {
+    {   
+        // if() {
+            
+        // }
         return $this->render('home/index.html.twig');
     }
 }

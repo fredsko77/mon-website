@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
-use App\Entity\User;
+use App\Entity\Utilisateur;
 use Faker\Generator;
 use App\Entity\Stack;
 use App\Entity\Project;
@@ -41,34 +41,34 @@ class AppFixtures extends Fixture
         }
 
         # Role Super Admin
-        $superAdmin = $this->generateUser($faker, User::ROLES['Super Administrateur']);
+        $superAdmin = $this->generateUser($faker, Utilisateur::ROLES['Super Administrateur']);
         $manager->persist($superAdmin);
         $usersList['super_admin'] = $superAdmin;
 
         # Role Admin
         for ($i = 0; $i < random_int(1, 4); $i++) {
-            $admin = $this->generateUser($faker, User::ROLES['Administrateur']);
+            $admin = $this->generateUser($faker, Utilisateur::ROLES['Administrateur']);
             $manager->persist($admin);
             $usersList['admin'][$i] = $admin;
         }
 
         # Role Manager
         for ($i = 0; $i < random_int(4, 10); $i++) {
-            $uManager = $this->generateUser($faker, User::ROLES['Gestionnaire']);
+            $uManager = $this->generateUser($faker, Utilisateur::ROLES['Gestionnaire']);
             $manager->persist($uManager);
             $usersList['manager'][$i] = $uManager;
         }
 
         # Role Editeur
         for ($i = 0; $i < random_int(10, 20); $i++) {
-            $editor = $this->generateUser($faker, User::ROLES['Editeur']);
+            $editor = $this->generateUser($faker, Utilisateur::ROLES['Editeur']);
             $manager->persist($editor);
             $usersList['editor'][$i] = $uManager;
         }
 
-        # Role User
+        # Role Utilisateur
         for ($i = 0; $i < random_int(75, 150); $i++) {
-            $user = $this->generateUser($faker, User::ROLES['Utilisateur']);
+            $user = $this->generateUser($faker, Utilisateur::ROLES['Utilisateur']);
             $manager->persist($user);
             $usersList['user'][$i] = $user;
         }
@@ -107,12 +107,12 @@ class AppFixtures extends Fixture
      * @param Generator $generator
      * @param array $roles
      * 
-     * @return User
+     * @return Utilisateur
      */
-    private function generateUser(Generator $generator, array $roles = ['ROLE_ADMIN']): User
+    private function generateUser(Generator $generator, array $roles = ['ROLE_ADMIN']): Utilisateur
     {
         $rand = random_int(1, 9);
-        $user = new User;
+        $user = new Utilisateur;
         $user->setFirstname($generator->firstName())
             ->setLastname($generator->lastName())
             ->setUsername($generator->userName())

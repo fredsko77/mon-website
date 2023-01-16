@@ -2,8 +2,8 @@
 
 namespace App\Security;
 
-use App\Entity\User;
-use App\Repository\UserRepository;
+use App\Entity\Utilisateur;
+use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -29,7 +29,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         private UrlGeneratorInterface $urlGenerator,
         private EntityManagerInterface $entityManager,
         private UserPasswordHasherInterface $passwordHasher,
-        private UserRepository $utilisateurRepository
+        private UtilisateurRepository $utilisateurRepository
     ) {
     }
 
@@ -40,7 +40,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         $request->getSession()->set(Security::LAST_USERNAME, $username);
         $user = $this->utilisateurRepository->findUserByUsernameOrEmail($username);
 
-        if ($user instanceof User) {
+        if ($user instanceof Utilisateur) {
 
             return new Passport(
                 new UserBadge($username),

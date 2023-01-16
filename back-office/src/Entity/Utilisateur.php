@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         message: 'Ce nom d\'utilisateur est déjà utilisé !'
     )
 ]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

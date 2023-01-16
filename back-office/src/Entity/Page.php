@@ -30,7 +30,7 @@ class Page
     private ?string $slug = null;
 
     #[ORM\ManyToOne(inversedBy: 'pages')]
-    private ?User $author = null;
+    private ?Utilisateur $author = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -109,12 +109,12 @@ class Page
         return $this;
     }
 
-    public function getAuthor(): ?User
+    public function getAuthor(): ?Utilisateur
     {
         return $this->author;
     }
 
-    public function setAuthor(?User $author): self
+    public function setAuthor(?Utilisateur $author): self
     {
         $this->author = $author;
 

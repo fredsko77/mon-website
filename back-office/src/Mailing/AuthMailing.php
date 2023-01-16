@@ -2,7 +2,6 @@
 
 namespace App\Mailing;
 
-use App\Entity\User;
 use App\Entity\Utilisateur;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\Exception\TransportException;

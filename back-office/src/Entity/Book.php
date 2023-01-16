@@ -32,7 +32,7 @@ class Book
     private ?string $visibility = null;
 
     #[ORM\ManyToOne(inversedBy: 'books')]
-    private ?User $author = null;
+    private ?Utilisateur $author = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -116,12 +116,12 @@ class Book
         return $this;
     }
 
-    public function getAuthor(): ?User
+    public function getAuthor(): ?Utilisateur
     {
         return $this->author;
     }
 
-    public function setAuthor(?User $author): self
+    public function setAuthor(?Utilisateur $author): self
     {
         $this->author = $author;
 

@@ -26,7 +26,7 @@ class Note
     private ?Contact $contact = null;
 
     #[ORM\ManyToOne]
-    private ?User $user = null;
+    private ?Utilisateur $user = null;
 
     public function getId(): ?int
     {
@@ -81,12 +81,12 @@ class Note
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getUser(): ?Utilisateur
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(?Utilisateur $user): self
     {
         $this->user = $user;
 

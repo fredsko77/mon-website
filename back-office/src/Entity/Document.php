@@ -30,7 +30,7 @@ class Document
     private ?string $size = null;
 
     #[ORM\ManyToOne(inversedBy: 'documents')]
-    private ?User $user = null;
+    private ?Utilisateur $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'document')]
     private ?Contact $contact = null;
@@ -100,12 +100,12 @@ class Document
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getUser(): ?Utilisateur
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(?Utilisateur $user): self
     {
         $this->user = $user;
 
