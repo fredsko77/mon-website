@@ -233,4 +233,24 @@ class Project
 
         return $this;
     }
+    
+    /**
+     * return Project STATES
+     *
+     * @return array
+     */
+    public static function states(): array 
+    {
+        return self::STATES;
+    }
+    
+    /**
+     * return Project VISIBILITIES
+     *
+     * @return array
+     */
+    public static function visibilities():array 
+    {
+        return self::VISIBILITIES;
+    }
 }

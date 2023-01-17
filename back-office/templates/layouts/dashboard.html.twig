@@ -21,6 +21,7 @@
     <link href="/css/app.min.css" rel="stylesheet" type="text/css" />
     <!-- custom Css-->
     <link href="/css/custom.min.css" rel="stylesheet" type="text/css" />
+    {% block stylesheets %}{% endblock %}
 
 </head>
 
@@ -44,9 +45,7 @@
                         title: 'Starter'
                     }) }}
 
-                    {% block main %}
-                        
-                    {% endblock %}
+                    {% block main %}{% endblock %}
 
                 </div>
                 <!-- container-fluid -->
@@ -58,6 +57,9 @@
         <!-- end main content-->
 
     </div>
+    <button onclick="topFunction()" class="btn btn-danger btn-icon" id="back-to-top" style="display: block;">
+        <i class="ri-arrow-up-line"></i>
+    </button>
     <!-- END layout-wrapper -->
 
     <!-- JAVASCRIPT -->
@@ -67,6 +69,7 @@
     <script src="/libs/feather-icons/feather.min.js"></script>
     <script src="/js/pages/plugins/lord-icon-2.1.0.js"></script>
     <script src="/js/plugins.js"></script>
+    {% block javascripts %}{% endblock %}
 
     <!-- App js -->
     <script src="/js/app.js"></script>

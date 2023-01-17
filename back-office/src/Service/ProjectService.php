@@ -1,25 +1,34 @@
 <?php 
 namespace App\Service;
 
+use DateTimeImmutable;
 use App\Entity\Project;
+use Cocur\Slugify\Slugify;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\FormInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 final class ProjectService 
 {
 
+    private mixed $slugger;
+    private mixed $session;
+
     public function __construct(
         private EntityManagerInterface $manager, 
         private PaginatorInterface $paginator,
-        private ProjectRepository $repository 
-    ){}
-
-
-    public function store (Project $project):void 
-    {
-        return;
+        private ProjectRepository $repository,
+        private ParameterBagInterface $parameterBag,
+        private Filesystem $filesystem
+    ){
+        $this->slugger = new Slugify;
+        $this->session = new Session;
     }
 
     public function search (Request $request) :?array
@@ -42,5 +51,78 @@ final class ProjectService
         return compact('projects');
     }
 
+    /**
+     * @param FormInterface $form
+     * @param Project $project
+     *
+     * @return void
+     */    
+    public function store(FormInterface $form, Project $project): void
+    {
+        $now = new DateTimeImmutable;
+        $image = $form->get('uploadedFile')->getData();
+        $project->getId() !== null ? $project->setUpdatedAt($now) : $project->setCreatedAt($now);
+
+        $project->setSlug(
+            $this->slugger->slugify(
+                $project->getSlug() ?? $project->getName(),
+                '-'
+            )
+        );
+
+        if ($image instanceof UploadedFile) {
+
+            $filename = md5(uniqid()) . '.' . $image->guessExtension();
+
+            $image->move(
+                $this->parameterBag->get('project_directory'),
+                $filename
+            );
+
+            $this->deleteImage($project);
+
+            $project->setImage('/uploads/project/' . $filename);
+
+            $this->session->getFlashBag()->add(
+                'info',
+                'Le contenu a été mis à jour'
+            );
+        }
+
+        $this->manager->persist($project);
+        $this->manager->flush();
+    }
+
+    /**
+     * @param Project $project
+     *
+     * @return void
+     */
+    private function deleteImage(Project $project): void
+    {
+        if ($project->getImage() !== null) {
+            $file = $this->container->getParameter('root_directory') . $project->getImage();
+            if ($this->filesystem->exists($file)) {
+                $this->filesystem->remove($file);
+            }
+        }
+    }
+    
+    /**
+     * publish
+     *
+     * @param  mixed $project
+     * @return void
+     */
+    public function publish(Project $project):void 
+    {
+        $now = new DateTimeImmutable;
+        $project->setPublishedAt($now)
+            ->setUpdatedAt($now)
+            ->setState(Project::STATES['published']);
+
+        $this->manager->flush();
+        return;         
+    }
 
 }

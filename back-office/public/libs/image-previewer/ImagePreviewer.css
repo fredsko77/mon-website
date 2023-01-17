@@ -1,0 +1,35 @@
+.previewer-error.list {
+  display: block;
+  margin: 0.5rem 0 1rem;
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  color: #842029;
+  background-color: #f8d7da;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #f5c2c7;
+  border-radius: 0.2rem;
+}
+
+.previewer-error.list:hover {
+  cursor: pointer;
+}
+
+.previewer-error.item {
+  margin-bottom: 0;
+  margin-top: 0;
+  font-size: 0.95rem;
+}
+.previewer-error.item::before {
+  content: "- ";
+}
+
+img.previewer-image {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  margin: 0.5rem auto 0.75rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 0.2rem;
+}

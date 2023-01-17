@@ -1,0 +1,70 @@
+{{ form_start(form) }}
+    <div class="row">
+        <div class="col-lg-8 col-xxl-9">
+                {{ form_row(form.name) }}    
+                {{ form_row(form.link) }}    
+                {{ form_row(form.description) }}    
+                {{ form_row(form.stack) }}
+        </div>
+        <div class="col-lg-3 col-xxl-3">
+
+            {{ form_row(form.save) }}
+
+            <!-- Accordions Bordered -->
+            <div class="accordion custom-accordionwithicon custom-accordion-border accordion-border-box" id="accordionInfosContainer">
+                <div class="accordion-item shadow">
+                    <h2 class="accordion-header" id="accordionInfos">
+                        <button class="accordion-button" type="button" aria-expanded="true" aria-controls="accordionInfosCollapse">
+                            Publier
+                        </button>
+                    </h2>
+                    <div id="accordionInfosCollapse" class="accordion-collapse collapse show" aria-labelledby="accordionInfos" data-bs-parent="#accordionBordered">
+                        <div class="accordion-body">
+                            <div class="row justify-content-end">
+                                {% if project.id %}
+                                    {# <a href=""></a> #}
+                                {% endif %}
+                            </div>
+                            {{ form_row(form.state) }}
+                            {{ form_row(form.visibility) }}
+                            {% if project.id %}
+                                <small>Dernière modification : {{ (project.updatedAt ?? project.createdAt)|format_datetime('full', locale='fr') }}</small>
+                                <a href="{{ path('dashboard_project_publish', {id: project.id}) }}" class="btn btn-primary">Publier</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion custom-accordtionwithicon custom-accordion-border accordion-border-box" id="accordionPermalinkContainer">
+                <div class="accordion-item shadow mt-2">
+                    <h2 class="accordion-header" id="accordionborderedExample2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accor_borderedExamplecollapse2" aria-expanded="false" aria-controls="accor_borderedExamplecollapse2">
+                            Permalien
+                        </button>
+                    </h2>
+                    <div id="accor_borderedExamplecollapse2" class="accordion-collapse collapse" aria-labelledby="accordionborderedExample2" data-bs-parent="#accordionBordered">
+                        <div class="accordion-body">
+                            {{ form_row(form.slug) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion custom-accordtionwithicon custom-accordion-border accordion-border-box" id="accordionUploaderContainer">
+                <div class="accordion-item shadow mt-2">
+                    <h2 class="accordion-header" id="accordionborderedExample3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accor_borderedExamplecollapse3" aria-expanded="false" aria-controls="accor_borderedExamplecollapse3">
+                            Image
+                        </button>
+                    </h2>
+                    <div id="accor_borderedExamplecollapse3" class="accordion-collapse collapse" aria-labelledby="accordionborderedExample3" data-bs-parent="#accordionBordered">
+                        <div class="accordion-body">
+                            {# <div id="errorsContainer" class="text-danger bg-soft-danger border-danger mb-1 border rounded"></div> #}
+                            {{ form_row(form.uploadedFile) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{ form_rest(form) }}
+        </div>
+    </div>
+{{ form_end(form) }}
