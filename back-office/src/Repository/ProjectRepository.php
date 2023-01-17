@@ -20,7 +20,14 @@ class ProjectRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Project::class);
     }
-
+    
+    /**
+     * save
+     *
+     * @param  mixed $entity
+     * @param  mixed $flush
+     * @return void
+     */
     public function save(Project $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -29,7 +36,14 @@ class ProjectRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+    
+    /**
+     * remove
+     *
+     * @param  mixed $entity
+     * @param  mixed $flush
+     * @return void
+     */
     public function remove(Project $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -37,6 +51,25 @@ class ProjectRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+    
+    /**
+     * search
+     *
+     * @param  mixed $search
+     * @return mixed
+     */
+    public function search(?string $search = null):mixed
+    {
+        $query = $this->createQueryBuilder('p');
+
+        if ($search !== null && $search !== "") {
+            $query
+                ->andWhere("MATCH_AGAINST(p.name, p.description, p.slug) AGAINST(:query boolean)>0")
+                ->setParameter('query', $search);
+        }
+
+        return $query->getQuery()->getResult();
     }
 
 //    /**
