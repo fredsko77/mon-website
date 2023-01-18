@@ -1,0 +1,24 @@
+{% extends "layouts/dashboard.html.twig" %}
+
+{% block main %}
+    
+    <div class="mt-2 mb-5">
+        {% include "partials/flashes.html.twig" %}
+        <h1 class="h3 mb-3">Éditer le projet <span class="text-primary">#{{ project.id }}</span></h1>
+        {% include "dashboard/project/_form.html.twig" with {form: form, project: project} %}
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('libs/image-previewer/imagePreviewer.css') }}">
+    <style>
+        select[multiple] {
+            min-height: 150px
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('libs/image-previewer/imagePreviewer.js') }}"></script>
+    <script src="{{ asset('js/dashboard/project.js') }}"></script>
+{% endblock %}

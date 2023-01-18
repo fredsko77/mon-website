@@ -53,7 +53,6 @@ class ImagePreviewer {
     } else if (this.options.hasOwnProperty("errorsContainer")) {
       container = document.querySelector(this.options.errorsContainer);
     } else if (container === null || container === undefined) {
-      console.log(container);
       container = document.querySelector(this.options.errorsContainer);
       if (container === null || container === undefined) {
         container = document.createElement("div");
@@ -64,8 +63,6 @@ class ImagePreviewer {
     } else if (target !== null && target !== undefined) {
       container = target;
     }
-
-    console.log(container);
 
     if (Object.keys(this.errors).length === 0) {
       container.remove();
@@ -101,6 +98,10 @@ class ImagePreviewer {
       imageContainer.classList = "previewer-image";
       node.insertAdjacentElement("beforebegin", imageContainer);
       this.imageContainer = imageContainer;
+    }
+
+    if (this.imageContainer.style.display === "none") {
+      this.imageContainer.style.display = "block";
     }
 
     this.imageContainer.src = URL.createObjectURL(image);

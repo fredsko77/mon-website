@@ -22,13 +22,13 @@
                         <div class="accordion-body">
                             <div class="row justify-content-end">
                                 {% if project.id %}
-                                    {# <a href=""></a> #}
+                                    <a href="{{ path('website_project_show', {slug: project.slug, id: project.id}) }}" class="btn btn-success mb-1">Prévisualiser</a>
                                 {% endif %}
                             </div>
                             {{ form_row(form.state) }}
                             {{ form_row(form.visibility) }}
                             {% if project.id %}
-                                <small>Dernière modification : {{ (project.updatedAt ?? project.createdAt)|format_datetime('full', locale='fr') }}</small>
+                                <small style="display: block;">Dernière modification : {{ (project.updatedAt ?? project.createdAt)|format_datetime('full', locale='fr') }}</small>
                                 <a href="{{ path('dashboard_project_publish', {id: project.id}) }}" class="btn btn-primary">Publier</a>
                             {% endif %}
                         </div>
@@ -58,6 +58,14 @@
                     </h2>
                     <div id="accor_borderedExamplecollapse3" class="accordion-collapse collapse" aria-labelledby="accordionborderedExample3" data-bs-parent="#accordionBordered">
                         <div class="accordion-body">
+                            <img 
+                                src="{{ asset(project.image ?? '') }}" 
+                                alt="Image {{ project.name }}" 
+                                srcset="{{ asset(project.image ?? '') }}"
+                                title="Image {{ project.name }}"
+                                class="img-fluid rounded previewer-image"
+                                {% if project.image == null %}style="display:none;"{% endif %}
+                            >
                             {# <div id="errorsContainer" class="text-danger bg-soft-danger border-danger mb-1 border rounded"></div> #}
                             {{ form_row(form.uploadedFile) }}
                         </div>

@@ -6,6 +6,7 @@ use App\Entity\Project;
 use Cocur\Slugify\Slugify;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Exception\ORMException;
 use Symfony\Component\Form\FormInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -82,15 +83,22 @@ final class ProjectService
             $this->deleteImage($project);
 
             $project->setImage('/uploads/project/' . $filename);
-
-            $this->session->getFlashBag()->add(
-                'info',
-                'Le contenu a été mis à jour'
-            );
         }
 
-        $this->manager->persist($project);
-        $this->manager->flush();
+        try {
+            $this->session->getFlashBag()->add(
+                'info',
+                'L\'article a été enregistré'
+            );
+
+            $this->manager->persist($project);
+            $this->manager->flush();
+        } catch (ORMException $e) {
+            $this->session->getFlashBag()->add(
+                'danger',
+                $e->getMessage()
+            );
+        }
     }
 
     /**
@@ -101,7 +109,7 @@ final class ProjectService
     private function deleteImage(Project $project): void
     {
         if ($project->getImage() !== null) {
-            $file = $this->container->getParameter('root_directory') . $project->getImage();
+            $file = $this->parameterBag->get('root_directory') . $project->getImage();
             if ($this->filesystem->exists($file)) {
                 $this->filesystem->remove($file);
             }
@@ -120,8 +128,22 @@ final class ProjectService
         $project->setPublishedAt($now)
             ->setUpdatedAt($now)
             ->setState(Project::STATES['published']);
+        
 
-        $this->manager->flush();
+        try {
+            $this->session->getFlashBag()->add(
+                'info',
+                'L\'article a été enregistré'
+            );
+
+            $this->manager->persist($project);
+            $this->manager->flush();
+        } catch (ORMException $e) {
+            $this->session->getFlashBag()->add(
+                'danger',
+                $e->getMessage()
+            );
+        }
         return;         
     }
 

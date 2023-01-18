@@ -56,9 +56,21 @@ class ProjectController extends AbstractController
     #[Route('/editer/{id}', name: 'edit', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
     public function edit(Project $project, Request $request):Response 
     {
-        
+        $form = $this->createForm(ProjectType::class, $project);
+        $form->handleRequest($request);
 
-        return $this->renderForm('dashboard/project/edit.html.twig', compact('project'));
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->service->store($form, $project);
+
+            return $this->redirectToRoute('dashboard_project_edit', [
+                'id' => $project->getId(),
+            ]);
+        }
+
+        return $this->renderForm("dashboard/project/edit.html.twig", [
+            'form' => $form,
+            'project' => $project,
+        ]);
     }
 
     #[Route('/delete/{id}', name: 'delete', methods: ['GET'], requirements: ['id' => '\d+'])]
