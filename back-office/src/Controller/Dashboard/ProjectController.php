@@ -74,10 +74,9 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'delete', methods: ['GET'], requirements: ['id' => '\d+'])]
-    public function delete(Project $project):Response 
-    {   
-
-        return $this->redirectToRoute('dashboard_project_index');
+    public function delete(Project $project, Request $request): Response 
+    {
+        return $this->redirect($this->service->delete($project, $request), Response::HTTP_FOUND);
     }
 
 }

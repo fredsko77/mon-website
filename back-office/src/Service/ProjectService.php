@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class ProjectService 
 {
@@ -26,12 +27,20 @@ final class ProjectService
         private PaginatorInterface $paginator,
         private ProjectRepository $repository,
         private ParameterBagInterface $parameterBag,
-        private Filesystem $filesystem
+        private Filesystem $filesystem, 
+        private UrlGeneratorInterface $router
     ){
         $this->slugger = new Slugify;
         $this->session = new Session;
     }
 
+        
+    /**
+     * search projects in project index page 
+     *
+     * @param  mixed $request
+     * @return array
+     */
     public function search (Request $request) :?array
     {
         // Init request values 
@@ -53,6 +62,8 @@ final class ProjectService
     }
 
     /**
+     * store project in database
+     * 
      * @param FormInterface $form
      * @param Project $project
      *
@@ -102,6 +113,8 @@ final class ProjectService
     }
 
     /**
+     * delete project image
+     * 
      * @param Project $project
      *
      * @return void
@@ -117,7 +130,7 @@ final class ProjectService
     }
     
     /**
-     * publish
+     * publish project
      *
      * @param  mixed $project
      * @return void
@@ -145,6 +158,32 @@ final class ProjectService
             );
         }
         return;         
+    }
+
+    
+    /**
+     * delete project
+     *
+     * @param  mixed $project
+     * @param  mixed $request
+     * 
+     * @return string
+     */
+    public function delete(Project $project, Request $request):string 
+    {
+        $referer = $request->headers->get('referer', $this->router->generate('dashboard_project_index'));
+        
+        $this->deleteImage($project);
+        
+        $this->manager->remove($project);
+        $this->manager->flush();
+
+        $this->session->getFlashBag()->add(
+            'info',
+            'Le projet a bien été supprimé'
+        );
+
+        return $referer;
     }
 
 }
