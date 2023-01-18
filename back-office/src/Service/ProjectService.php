@@ -140,9 +140,8 @@ final class ProjectService
         $now = new DateTimeImmutable;
         $project->setPublishedAt($now)
             ->setUpdatedAt($now)
-            ->setState(Project::STATES['published']);
-        
-
+            ->setState('published');
+            
         try {
             $this->session->getFlashBag()->add(
                 'info',
@@ -157,6 +156,7 @@ final class ProjectService
                 $e->getMessage()
             );
         }
+
         return;         
     }
 

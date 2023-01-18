@@ -18,17 +18,31 @@
                             Publier
                         </button>
                     </h2>
-                    <div id="accordionInfosCollapse" class="accordion-collapse collapse show" aria-labelledby="accordionInfos" data-bs-parent="#accordionBordered">
+                    <div 
+                        id="accordionInfosCollapse" 
+                        class="accordion-collapse collapse show" 
+                        aria-labelledby="accordionInfos" 
+                        data-bs-parent="#accordionInfosContainer"
+                    >
                         <div class="accordion-body">
                             <div class="row justify-content-end">
                                 {% if project.id %}
-                                    <a href="{{ path('website_project_show', {slug: project.slug, id: project.id}) }}" class="btn btn-success mb-1">Prévisualiser</a>
+                                    <a 
+                                        href="{{ path('website_project_show', {
+                                            slug: project.slug, 
+                                            id: project.id
+                                        }) }}" 
+                                        class="btn btn-success mb-1" 
+                                        target="_blank"
+                                    >Prévisualiser</a>
                                 {% endif %}
                             </div>
                             {{ form_row(form.state) }}
                             {{ form_row(form.visibility) }}
                             {% if project.id %}
-                                <small style="display: block;">Dernière modification : {{ (project.updatedAt ?? project.createdAt)|format_datetime('full', locale='fr') }}</small>
+                                <small style="display: block;">
+                                    Dernière modification : {{ (project.updatedAt ?? project.createdAt)|format_datetime('full', locale='fr') }}
+                                </small>
                                 <a href="{{ path('dashboard_project_publish', {id: project.id}) }}" class="btn btn-primary">Publier</a>
                             {% endif %}
                         </div>
@@ -37,12 +51,22 @@
             </div>
             <div class="accordion custom-accordtionwithicon custom-accordion-border accordion-border-box" id="accordionPermalinkContainer">
                 <div class="accordion-item shadow mt-2">
-                    <h2 class="accordion-header" id="accordionborderedExample2">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accor_borderedExamplecollapse2" aria-expanded="false" aria-controls="accor_borderedExamplecollapse2">
-                            Permalien
-                        </button>
+                    <h2 class="accordion-header" id="accordionPermalink">
+                        <button 
+                            class="accordion-button collapsed" 
+                            type="button" 
+                            data-bs-toggle="collapse" 
+                            data-bs-target="#accor_permalink" 
+                            aria-expanded="false" 
+                            aria-controls="accor_permalink"
+                        >Permalien</button>
                     </h2>
-                    <div id="accor_borderedExamplecollapse2" class="accordion-collapse collapse" aria-labelledby="accordionborderedExample2" data-bs-parent="#accordionBordered">
+                    <div 
+                        id="accor_permalink" 
+                        class="accordion-collapse collapse" 
+                        aria-labelledby="accordionPermalink" 
+                        data-bs-parent="#accordionPermalinkContainer"
+                    >
                         <div class="accordion-body">
                             {{ form_row(form.slug) }}
                         </div>
@@ -51,12 +75,22 @@
             </div>
             <div class="accordion custom-accordtionwithicon custom-accordion-border accordion-border-box" id="accordionUploaderContainer">
                 <div class="accordion-item shadow mt-2">
-                    <h2 class="accordion-header" id="accordionborderedExample3">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accor_borderedExamplecollapse3" aria-expanded="false" aria-controls="accor_borderedExamplecollapse3">
-                            Image
-                        </button>
+                    <h2 class="accordion-header" id="accordionUploaderLabel">
+                        <button 
+                            class="accordion-button collapsed" 
+                            type="button" 
+                            data-bs-toggle="collapse" 
+                            data-bs-target="#accor_Uploader" 
+                            aria-expanded="false" 
+                            aria-controls="accor_Uploader"
+                        >Image</button>
                     </h2>
-                    <div id="accor_borderedExamplecollapse3" class="accordion-collapse collapse" aria-labelledby="accordionborderedExample3" data-bs-parent="#accordionBordered">
+                    <div 
+                        id="accor_Uploader" 
+                        class="accordion-collapse collapse" 
+                        aria-labelledby="accordionUploaderLabel" 
+                        data-bs-parent="#accordionUploaderContainer"
+                    >
                         <div class="accordion-body">
                             <img 
                                 src="{{ asset(project.image ?? '') }}" 
@@ -66,7 +100,6 @@
                                 class="img-fluid rounded previewer-image"
                                 {% if project.image == null %}style="display:none;"{% endif %}
                             >
-                            {# <div id="errorsContainer" class="text-danger bg-soft-danger border-danger mb-1 border rounded"></div> #}
                             {{ form_row(form.uploadedFile) }}
                         </div>
                     </div>
