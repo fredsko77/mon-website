@@ -35,8 +35,8 @@ security:
     access_control:
         - { path: ^/inscription, roles: PUBLIC_ACCESS }
         - { path: ^/connexion, roles: PUBLIC_ACCESS }
-        - { path: ^/, roles: [ROLE_USER, PUBLIC_ACCESS] }
-        - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/dashboard/sshsh, roles: [ROLE_USER, PUBLIC_ACCESS] }
+        - { path: ^/auth/profile, roles: ROLE_USER }
 
 when@test:
     security:

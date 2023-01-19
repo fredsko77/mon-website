@@ -3,22 +3,15 @@
     <!-- LOGO -->
     <div class="navbar-brand-box">
         <!-- Dark Logo-->
-        <a href="/" class="logo logo-dark">
-            <span class="logo-sm">
-                <img src="/images/logo-dark.png" alt="Logo de teamee" height="12">
-            </span>
-            <span class="logo-lg">
-                <img src="/images/logo-dark.png" alt="Logo de teamee" height="30">
-            </span>
-        </a>
-        <!-- Light Logo-->
-        <a href="/" class="logo logo-light">
-            <span class="logo-sm">
-                <img src="/images/logo-dark.png" alt="Logo de teamee" height="12">
-            </span>
-            <span class="logo-lg">
-                <img src="/images/logo-dark.png" alt="Logo de teamee" height="30">
-            </span>
+        <a href="{{ path('dashboard_default') }}" class="logo">
+            <img 
+                src="{{ asset('images/logo.png') }}" 
+                src="{{ asset('images/logo.png') }}" 
+                alt="Logo de agathefrederick.fr" 
+                title="Logo de agathefrederick.fr" 
+                height="30" 
+                width="auto"
+            >
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
             <i class="ri-record-circle-line"></i>
@@ -166,8 +159,15 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="#sidebarLogout" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLogout" data-key="t-logout"> Logout
-                                </a>
+                                <a 
+                                    href="#sidebarLogout" 
+                                    class="nav-link" 
+                                    data-bs-toggle="collapse" 
+                                    role="button" 
+                                    aria-expanded="false" 
+                                    aria-controls="sidebarLogout" 
+                                    data-key="t-logout"
+                                > Logout </a>
                                 <div class="collapse menu-dropdown" id="sidebarLogout">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">

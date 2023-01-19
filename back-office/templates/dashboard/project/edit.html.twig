@@ -1,9 +1,9 @@
-{% extends "layouts/dashboard.html.twig" %}
+{% extends "dashboard/base.html.twig" %}
 
 {% block main %}
     
     <div class="mt-2 mb-5">
-        {% include "partials/flashes.html.twig" %}
+        {% include "partials.html.twig" %}
         <h1 class="h3 mb-3">Éditer le projet <span class="text-primary">#{{ project.id }}</span></h1>
         {% include "dashboard/project/_form.html.twig" with {form: form, project: project} %}
     </div>
