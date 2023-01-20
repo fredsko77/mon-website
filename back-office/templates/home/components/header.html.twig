@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-landing navbar-light fixed-top" id="navbar">
     <div class="container">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="{{ path('app_default') }}">
             <img 
                 src="{{ asset('images/logo.png') }}" 
                 class="card-logo" 
@@ -23,6 +23,9 @@
             <ul class="navbar-nav mx-auto mt-2 mt-lg-0" id="navbar-landing-home">
                 <li class="nav-item">
                     <a class="nav-link fs-15 active" href="#hero">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-15" href="#about">À propos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link fs-15" href="#competences">Compétences</a>
