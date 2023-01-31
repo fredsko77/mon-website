@@ -1,0 +1,56 @@
+{% extends "layouts/default.html.twig" %}
+
+{% set colors = ['primary', 'secondary', 'warning', 'danger', 'dark', 'info', 'success'] %}
+
+{% block main %}
+    <section class="container-fluid container-xxl">
+        <h1 class="h3">Mes réalisations</h1>
+        <div class="row my-4">
+            {% for project in projects %}
+                <div class="col-auto col-lg-4">
+                    <div class="card explore-box card-animate border">
+                        <div class="explore-place-bid-img">
+                            <img 
+                                src="{{ asset(project.image ?? 'images/default/project.jpg') }}" 
+                                srcset="{{ asset(project.image ?? 'images/default/project.jpg') }}" 
+                                alt="Photo du projet {{ project.name|capitalize }}" 
+                                title="Photo du projet {{ project.name|capitalize }}" 
+                                id="project_image_{{ project.id }}"
+                                class="card-img-top explore-img"
+                            >
+                            <div class="bg-overlay"></div>
+                            <div class="place-bid-btn">
+                                <a  
+                                    href="{{ path('website_project_show', { 
+                                        id: project.id,
+                                        slug: project.slug
+                                    }) }}" 
+                                    class="btn btn-success"
+                                >
+                                    <i class="ri-auction-fill align-bottom me-1"></i> 
+                                    Voir le projet
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <a href="{{ path('website_project_show', { 
+                                id: project.id,
+                                slug: project.slug
+                            }) }}">{{ project.name }}</a>
+                            <div class="d-flex">
+                                {% if project.stack|length > 0 %}
+                                    {% for s in project.stack %}
+                                        <span class="badge badge-border badge-{{ random(colors) }}"></span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <nav class="mt-2" id="pagination-project">
+                {{ knp_pagination_render(projects) }}
+            </nav>
+        </div>
+    </section>
+{% endblock %}

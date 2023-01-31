@@ -78,3 +78,7 @@ section.section {
   height: auto;
 }
 
+main {
+  min-height: 50vh;
+  padding-top: 90px;
+}
