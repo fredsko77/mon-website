@@ -5,3 +5,76 @@ Website: https://themesbrand.com/
 Contact: support@themesbrand.com
 File: Custom Css File
 */
+.navbar-light .navbar-toggler,
+.navbar .navbar-toggler {
+  border: none;
+  border-color: unset;
+  outline: none;
+}
+
+.navbar-toggler.fs-20 {
+  font-size: 30px !important;
+}
+
+#competences .card .text-muted p.card-text {
+  margin-bottom: 0;
+  font-size: 14px;
+}
+
+#competences .card .card-body > span {
+  font-size: 25px;
+  height: 40px;
+  width: 40px;
+  display: inline-block;
+  border-radius: 20px;
+  color: var(--vz-white);
+  margin-bottom: 10px;
+}
+
+#competences .card {
+  min-height: 200px;
+}
+
+.section-header {
+  text-align: center;
+}
+
+.section-header hr {
+  opacity: 0.1;
+  margin-bottom: 30px;
+}
+
+.box-contact {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.4rem;
+  transition: all 0.5s ease-out;
+  background-color: var(--bs-white);
+  box-sizing: border-box;
+  width: 90%;
+  height: 12vh;
+  max-height: 150px;
+  font-size: 40px;
+  padding: 1rem 0;
+  box-shadow: 0px 2px 8px 0px rgba(99, 99, 99, 0.2);
+  color: inherit;
+}
+
+.carousel-caption {
+  background-color: rgba(0, 0, 0, .15);
+}
+
+section.section.nft-hero {
+  height: 100vh;
+}
+
+section.section:not(#contacts) {
+  min-height: 67vh;
+}
+
+section.section {
+  height: auto;
+}
+

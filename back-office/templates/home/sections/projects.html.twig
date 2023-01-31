@@ -1,4 +1,83 @@
- <section class="section my-5" id="mes-realisations">
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas unde nulla officia aliquid dolores veniam repudiandae, deleniti assumenda quasi architecto consequatur sint tenetur quaerat. Debitis earum provident quod ipsa eius quam sunt corrupti dolor dolorem hic libero repudiandae aperiam, enim accusamus ea totam fugit error? Quis enim provident ipsum corrupti consequatur eaque eum iure doloremque et sit, voluptatem earum quae, impedit quod at, ea magnam omnis quas aut veniam. Culpa facere reprehenderit magnam excepturi iste, obcaecati eaque mollitia atque rem delectus omnis voluptates, assumenda maxime quia vero enim ad voluptatem nobis, cumque perferendis? Sunt et aliquam, perferendis culpa dolore nihil.</p>
-    <p>Blanditiis dolor, commodi rerum nesciunt dicta placeat facere quas optio officia quos illum est magni aliquam necessitatibus mollitia, consequatur quis dolorum explicabo. Ratione dolore, maxime iure, aspernatur doloribus consequatur nulla ipsum deleniti suscipit vel excepturi obcaecati quis repudiandae incidunt aliquam fugiat veritatis vero eaque eum impedit nobis, consectetur minima corporis. Ut doloremque voluptate vel velit officiis sed nihil, nulla consequuntur. Alias ipsam perferendis quos corrupti tenetur illum non, accusantium neque exercitationem. Excepturi tempore temporibus molestiae? Reiciendis totam ipsum laboriosam velit quam, saepe sit ducimus vero officiis atque et delectus recusandae dignissimos eos consectetur. Esse consequuntur repellat quo pariatur, iusto repellendus.</p>
+ <section class="section bg-light py-5 mb-0" id="mes-realisations">
+    <div class="container-fluid container-xxl">
+        <div class="section-header">
+            <h3 class="section-title">Mes réalisations</h3>
+            <small>Les derniers projets sur lesquels j'ai travaillé</small>
+            <hr>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <!-- Carousel container --> 
+                <div id="carouselHomePage" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-touch="true">
+                    <div class="carousel-indicators">
+                        {% for key, project in projects %}
+                            <button
+                                type="button"
+                                data-bs-target="#carouselHomePage"
+                                data-bs-slide-to="{{ key }}" 
+                                {% if key == 0 %}
+                                    class="active" aria-current="true"
+                                {% endif %} 
+                                aria-label="Projet n°{{ 1 + 1 }}"
+                            ></button>
+                        {% endfor %}
+                    </div>
+                    <div class="carousel-inner">
+                        {% for key,project in projects %}
+                            <div class="carousel-item {% if key == 0 %}active{% endif %}">
+                                <div class="carousel-item-image-overlay">
+                                    <img 
+                                        src="{{ asset(project.image ?? 'images/default/project.jpg') }}" 
+                                        srcset="{{ asset(project.image ?? 'images/default/project.jpg') }}" 
+                                        class="d-block img-fluid mx-auto" 
+                                        alt="Image du project"
+                                    >
+                                </div>
+                                <div class="carousel-caption d-none d-md-block text-white">
+                                    <h5>
+                                        <a 
+                                            href="{{ path('website_project_show',    { 
+                                                id: project.id,
+                                                slug: project.slug
+                                            }) }}"
+                                            title="Voir les informations sur le projet"
+                                            class="text-white"
+                                        >
+                                            {{ project.name }}
+                                        </a>
+                                    </h5>
+                                    <p>{{ project.description }}</p>
+                                </div>
+                            </div>                        
+                        {% endfor %}
+                        <button 
+                            class="carousel-control-prev" 
+                            type="button" 
+                            data-bs-target="#carouselHomePage" 
+                            data-bs-slide="prev"
+                        >
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button 
+                            class="carousel-control-next" 
+                            type="button" 
+                            data-bs-target="#carouselHomePage"
+                            data-bs-slide="next"
+                        >
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-row justify-content-end mt-3">
+                <a 
+                    href="{{ path('website_project_index') }}" 
+                    class="text-underline link" 
+                    title="Lien vers tous les projets"
+                >Voir tous les projets</a>
+            </div>
+        </div>
+    </div>
 </section>

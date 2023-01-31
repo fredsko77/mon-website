@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Project;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @extends ServiceEntityRepository<Project>
@@ -16,7 +17,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ProjectRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private Security $security)
     {
         parent::__construct($registry, Project::class);
     }
@@ -52,6 +53,28 @@ class ProjectRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function latest():mixed 
+    {
+        $params = [];
+        $qb = $this->createQueryBuilder('p')
+                ->andWhere('p.state = :state')
+            ;
+        $params['state'] = 'published';
+
+        if (!$this->security->isGranted(['ROLE_ADMIN'])) {
+            $qb->andWhere('p.visibility = :visibility');
+            $params['visibility'] = 'public';
+        }
+        
+        return $qb
+            ->setParameters($params)
+            ->orderBy('p.publishedAt', 'desc')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     
     /**
      * search
@@ -61,15 +84,16 @@ class ProjectRepository extends ServiceEntityRepository
      */
     public function search(?string $search = null):mixed
     {
-        $query = $this->createQueryBuilder('p');
+        $qb = $this->createQueryBuilder('p');
 
-        if ($search !== null && $search !== "") {
-            $query
-                ->andWhere("MATCH_AGAINST(p.name, p.description, p.slug) AGAINST(:query boolean)>0")
-                ->setParameter('query', $search);
+        if ($search !== null && $search !== '') {
+            $qb
+                ->where('MATCH_AGAINST(p.name, p.description, p.slug) AGAINST(:search boolean)>0')
+                ->setParameters(['search' => $search])
+            ;
         }
-
-        return $query->getQuery()->getResult();
+        
+        return $qb->orderBy('p.updatedAt', 'desc')->getQuery()->getResult();
     }
 
 //    /**
