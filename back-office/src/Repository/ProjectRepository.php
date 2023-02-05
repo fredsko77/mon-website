@@ -20,7 +20,7 @@ class ProjectRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Project::class);
     }
-    
+
     /**
      * save
      *
@@ -36,7 +36,7 @@ class ProjectRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-    
+
     /**
      * remove
      *
@@ -52,48 +52,49 @@ class ProjectRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-    
+
     /**
      * search
      *
      * @param  mixed $search
      * @return mixed
      */
-    public function search(?string $search = null):mixed
+    public function search(?string $search = null): mixed
     {
         $query = $this->createQueryBuilder('p');
 
         if ($search !== null && $search !== "") {
+            // dd($search);
             $query
-                ->andWhere("MATCH_AGAINST(p.name, p.description, p.slug) AGAINST(:query boolean)>0")
-                ->setParameter('query', $search);
+                ->andWhere("MATCH_AGAINST(p.name, p.description, p.slug) AGAINST('{$search}' boolean)>0");
+            // ->setParameter('query', $search);
         }
 
         return $query->getQuery()->getResult();
     }
 
-//    /**
-//     * @return Project[] Returns an array of Project objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    //    /**
+    //     * @return Project[] Returns an array of Project objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('p.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
 
-//    public function findOneBySomeField($value): ?Project
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?Project
+    //    {
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }
