@@ -47,12 +47,12 @@ class ProjectType extends AbstractType
                 'expanded' => false,
                 'choices' => $this->reverseKeysValues(Project::visibilities()),
             ])
-            ->add('stack', EntityType::class, [
+            ->add('stacks', EntityType::class, [
                 'required' => false,
                 'label' => 'Stack',
                 'class' => Stack::class,
                 'choice_label' => 'name',
-                'expanded' => false,
+                'expanded' => true,
                 'multiple' => true,
             ])
             ->add('uploadedFile', FileType::class, [

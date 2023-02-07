@@ -1,0 +1,65 @@
+{% extends "layouts/default.html.twig" %}
+
+{% set colors = ['primary', 'secondary', 'warning', 'danger', 'dark', 'info', 'success'] %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/aftoast.min.css') }}">
+{% endblock %}
+
+{% block main %}
+
+    <div class="page-content" style="padding-top: 10px">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card mt-n4 mx-n4">
+                    <div class="bg-soft-warning">
+                        <div class="card-body pb-0 px-4">
+                            <div class="row mb-3">
+                                <div class="col-md-4 col-12">
+                                    <div class="project-image">
+                                        <img 
+                                            src="{{ asset(project.image ?? 'images/default/project.jpg') }}" 
+                                            srcset="{{ asset(project.image ?? 'images/default/project.jpg') }}" 
+                                            alt="Photo du projet {{ project.name|capitalize }}" 
+                                            title="Photo du projet {{ project.name|capitalize }}" 
+                                            id="project_image_{{ project.id }}"
+                                            class="card-img-top explore-img"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-12">
+                                    <h4 class="fw-bold">{{ project.name }}</h4>
+                                    <div class="hstack gap-3 flex-wrap">
+                                    <div class=""></div>
+                                    <div class="vr"></div>
+                                    <div class=""></div>
+                                    <div class="vr"></div>
+                                    <div class="">
+                                    </div>
+                                        {% if project.stacks %}
+                                            {% for s in project.stacks %}
+                                                <span class="badge bg-primary">{{ s.name }}</span>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <pre>
+        {{ dump(project) }}
+    </pre>
+
+    
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/aftoast.min.js')}}"></script>
+{% endblock %}

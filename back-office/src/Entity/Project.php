@@ -55,11 +55,11 @@ class Project
     private ?string $visibility = null;
 
     #[ORM\ManyToMany(targetEntity: Stack::class, cascade: ['persist', 'remove'])]
-    private Collection $stack;
+    private Collection $stacks;
 
     public function __construct()
     {
-        $this->stack = new ArrayCollection();
+        $this->stacks = new ArrayCollection();
     }
 
     const VISIBILITIES = [
@@ -213,15 +213,15 @@ class Project
     /**
      * @return Collection<int, Stack>
      */
-    public function getStack(): Collection
+    public function getStacks(): Collection
     {
-        return $this->stack;
+        return $this->stacks;
     }
 
     public function addStack(Stack $stack): self
     {
-        if (!$this->stack->contains($stack)) {
-            $this->stack->add($stack);
+        if (!$this->stacks->contains($stack)) {
+            $this->stacks->add($stack);
         }
 
         return $this;
@@ -229,7 +229,7 @@ class Project
 
     public function removeStack(Stack $stack): self
     {
-        $this->stack->removeElement($stack);
+        $this->stacks->removeElement($stack);
 
         return $this;
     }
