@@ -97,4 +97,15 @@ trait FakerTrait
 
         return $originalDateTime->modify('+' . random_int(0, $days) . ' days');
     }
+
+    public function surroundTag(array $array = [], string $tag = 'p'):string
+    {
+        $str = '';
+
+        foreach($array as $k => $a) {
+            $str .= "<{$tag}>{$a}</{tag}>";
+        }
+
+        return $str;
+    }
 }

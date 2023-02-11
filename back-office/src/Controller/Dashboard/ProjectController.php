@@ -54,7 +54,7 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/editer/{id}', name: 'edit', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
-    public function edit(Project $project, Request $request):Response 
+    public function editer(Project $project, Request $request):Response 
     {
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);

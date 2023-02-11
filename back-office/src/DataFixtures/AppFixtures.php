@@ -78,7 +78,7 @@ class AppFixtures extends Fixture
             $project = new Project;
             $users = array_merge($usersList['editor'], $usersList['manager'], $usersList['user']);
             $project->setName($faker->words(random_int(1, 3), true))
-                ->setDescription($faker->sentences(random_int(1, 3), true))
+                ->setDescription($this->surroundTag($faker->paragraphs(random_int(1, 3))))
                 ->setLink($faker->url())
                 ->setSlug($this->slugger->slugify($project->getName()))
                 ->setVisibility(array_rand(Project::VISIBILITIES))

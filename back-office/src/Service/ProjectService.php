@@ -95,7 +95,7 @@ final class ProjectService
 
             $project->setImage('/uploads/project/' . $filename);
         }
-
+        
         try {
             $this->session->getFlashBag()->add(
                 'info',
