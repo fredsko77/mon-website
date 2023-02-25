@@ -146,7 +146,13 @@ trait ServiceTrait
             $headers
         );
     }
-
+    
+    /**
+     * filterViolations
+     *
+     * @param  mixed $violations
+     * @return array
+     */
     public function filterViolations(ConstraintViolationList $violations): array
     {
         $errors = [];

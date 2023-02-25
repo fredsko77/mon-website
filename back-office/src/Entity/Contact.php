@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\All;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact
@@ -17,18 +19,24 @@ class Contact
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Ce champs est obligatoire.')]
     private ?string $fullname = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'L\'adresse e-mail est obligatoire.')]
+    #[Assert\Email(message: 'Cette adresse e-mail n\'est pas valide.')]
     private ?string $email = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank(message: 'Ce champs est obligatoire.', allowNull: true)]
     private ?string $about = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $state = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank(message: 'Ce champs est obligayoire.', allowNull: true)]
+    #[Assert\Type(type: 'numeric', message: 'Ce numéro de téléphone n\'est pas au bon format.')]
     private ?string $telephone = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -49,6 +57,11 @@ class Contact
     #[ORM\OneToMany(mappedBy: 'contact', targetEntity: Document::class, cascade: ['persist', 'remove'])]
     private Collection $document;
 
+    public const STATE_NEW = 'new';
+    public const STATE_PENDING = 'pending';
+    public const STATE_READ = 'read';
+    public const STATE_REPLIED = 'replied';
+    
     public function __construct()
     {
         $this->notes = new ArrayCollection();
@@ -226,5 +239,14 @@ class Contact
         }
 
         return $this;
+    }
+
+    public static function states():array {
+        return [
+            self::STATE_NEW,
+            self::STATE_PENDING,
+            self::STATE_READ,
+            self::STATE_REPLIED
+        ];
     }
 }

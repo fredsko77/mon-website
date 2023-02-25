@@ -62,6 +62,17 @@ File: Custom Css File
   color: inherit;
 }
 
+#maps-iframe {
+  max-width: 100%;
+  max-height: 300px;
+  margin-bottom: 0.75rem;
+}
+
+.box-contact:hover {
+  background-color: rgba(75,56,179,.18)!important;
+  transition: all ease-in-out 500ms;
+}
+
 .carousel-caption {
   background-color: rgba(0, 0, 0, .15);
 }

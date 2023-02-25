@@ -6,6 +6,7 @@
 parameters:
     root_directory: '%kernel.project_dir%/public'
     project_directory: '%kernel.project_dir%/public/uploads/project'
+    contact_directory: '%kernel.project_dir%/public/uploads/contact'
     
 services:
     # default configuration for services in *this* file

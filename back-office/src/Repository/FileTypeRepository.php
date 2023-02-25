@@ -39,6 +39,13 @@ class FileTypeRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllArray(): ?array
+    {
+        return $this->createQueryBuilder('f')
+            ->getQuery()
+            ->getArrayResult();
+    }
+
 //    /**
 //     * @return FileType[] Returns an array of FileType objects
 //     */
